@@ -110,6 +110,11 @@ public class IdCardManager implements LifecycleObserver {
 
     public IdCardInfo readIdCard() {
         IdCardInfo idCardInfo = new IdCardInfo();
+        if (mFragmentActivity == null) {
+            Log.e(TAG, "IdCardManager: 未初始化！");
+            idCardInfo.message = "IdCardManager 未初始化！";
+            return idCardInfo;
+        }
         if (mDevice == null) {
             Log.e(TAG, "readIdCard: 请插入读卡器！");
             idCardInfo.message = "请插入读卡器！";
@@ -141,7 +146,8 @@ public class IdCardManager implements LifecycleObserver {
             Log.e(TAG, secondIDInfo.fingerPrint == 1024 ? "有指纹" : "无指纹");
             //设置蜂鸣器和LED指示灯
             mHIDDev.BeepLed(true, true, 500);
-            idCardInfo.message = "成功";
+            idCardInfo.message = "识别成功！";
+            idCardInfo.code = 1;
             idCardInfo.name = secondIDInfo.name;
             idCardInfo.gender = secondIDInfo.gender;
             idCardInfo.folk = secondIDInfo.folk;

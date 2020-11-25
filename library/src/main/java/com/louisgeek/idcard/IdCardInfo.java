@@ -27,5 +27,6 @@ public class IdCardInfo {
     @Deprecated
     public int cardType = 67;
     //消息
+    public int code;
     public String message;
 }
